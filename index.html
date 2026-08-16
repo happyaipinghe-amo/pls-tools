@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>民营眼科 PLS 项目运营工具箱</title>
+  <meta name="description" content="民营眼科 PLS 项目运营工具统一入口，包含核查评估、术前问卷、晶体匹配、术后随访、90天行动表与六大支柱内容。">
+  <style>
+    :root {
+      --ink: #17313b;
+      --muted: #60747c;
+      --line: #d9e4e7;
+      --bg: #f6f8f5;
+      --paper: #ffffff;
+      --teal: #007d8a;
+      --green: #628a35;
+      --gold: #b98223;
+      --red: #b0473c;
+      --shadow: 0 18px 45px rgba(23, 49, 59, .10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(0, 125, 138, .08), transparent 36%),
+        linear-gradient(315deg, rgba(185, 130, 35, .12), transparent 34%),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 44px 0 28px;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--teal), var(--green));
+      box-shadow: 0 12px 24px rgba(0, 125, 138, .18);
+    }
+
+    .count {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .68);
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.16fr .84fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .quick-panel {
+      align-self: end;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .76);
+      box-shadow: var(--shadow);
+    }
+
+    .quick-panel strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 17px;
+    }
+
+    .quick-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 18px 0 24px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(246, 248, 245, .92);
+      backdrop-filter: blur(14px);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .tabs a {
+      flex: 0 0 auto;
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .tabs a:hover,
+    .tabs a:focus-visible {
+      border-color: var(--line);
+      color: var(--teal);
+      background: var(--paper);
+      outline: none;
+    }
+
+    main {
+      padding: 0 0 54px;
+    }
+
+    section {
+      margin-top: 30px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 2px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(23, 49, 59, .06);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(0, 125, 138, .38);
+      box-shadow: var(--shadow);
+      outline: none;
+    }
+
+    .tag {
+      align-self: flex-start;
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tag.green { background: var(--green); }
+    .tag.gold { background: var(--gold); }
+    .tag.red { background: var(--red); }
+
+    .card h3 {
+      margin: 16px 0 8px;
+      font-size: 20px;
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .open {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 18px;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    .open::after {
+      content: "→";
+      font-size: 18px;
+    }
+
+    footer {
+      padding: 26px 0 42px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-panel {
+        align-self: stretch;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 24px, 1180px);
+      }
+
+      header {
+        padding-top: 28px;
+      }
+
+      .topline {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="topline">
+        <a class="brand" href="./index.html" aria-label="返回工具箱首页">
+          <span class="mark">PLS</span>
+          <span>民营眼科 PLS 项目运营工具箱</span>
+        </a>
+        <div class="count">9 个网页工具 · 一个入口</div>
+      </div>
+
+      <div class="hero">
+        <div>
+          <h1>一个网址打开全部 PLS 项目运营工具</h1>
+          <p class="lead">面向民营眼科医院的全自费 Premium Lens Surgery 项目，从术前筛查、晶体匹配、诊疗中心核查，到共识会议、90 天行动和六大支柱体系，都集中在这里。</p>
+        </div>
+        <aside class="quick-panel">
+          <strong>建议使用方式</strong>
+          <p>院长或项目负责人先看“核查评估系统”和“六大支柱”，医生与咨询团队使用术前问卷和晶体匹配工具，运营会议后用 90 天行动表沉淀共识。</p>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell toolbar" aria-label="工具分类导航">
+    <nav class="tabs">
+      <a href="#diagnosis">评估筛查</a>
+      <a href="#patient">患者决策</a>
+      <a href="#operation">运营共识</a>
+      <a href="#system">体系建设</a>
+      <a href="#product">产品资料</a>
+    </nav>
+  </div>
+
+  <main class="shell">
+    <section id="diagnosis">
+      <div class="section-head">
+        <h2>评估筛查</h2>
+        <p>用于项目准入、中心能力核查和患者术前风险识别。</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="./国际PLS诊疗中心核查评估系统.html">
+          <span class="tag">中心评估</span>
+          <h3>国际 PLS 诊疗中心核查评估系统</h3>
+          <p>按核心能力维度核查 PLS 诊疗中心建设成熟度，形成改进方向。</p>
+          <span class="open">打开工具</span>
+        </a>
+        <a class="card" href="./PLS项目术前心理红线评估量表.html">
+          <span class="tag red">风险识别</span>
+          <h3>PLS 项目术前心理红线评估量表</h3>
+          <p>帮助识别高期待、低耐受、沟通风险等术前心理红线。</p>
+          <span class="open">打开工具</span>
+        </a>
+        <a class="card" href="./PLS项目术前视觉需求问卷.html">
+          <span class="tag green">需求评估</span>
+          <h3>PLS 项目术前视觉需求问卷</h3>
+          <p>围绕生活场景、用眼距离和视觉质量诉求，结构化记录患者需求。</p>
+          <span class="open">打开工具</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="patient">
+      <div class="section-head">
+        <h2>患者决策</h2>
+        <p>用于医生、咨询师和患者沟通时的匹配与随访管理。</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="./PLS项目人工晶体匹配决策树.html">
+          <span class="tag">IOL 匹配</span>
+          <h3>PLS 项目人工晶体匹配决策树</h3>
+          <p>根据患者特征和视觉需求，辅助形成更清晰的晶体推荐路径。</p>
+          <span class="open">打开工具</span>
+        </a>
+        <a class="card" href="./AIOLIS_PCIOL_RLE术后护理随访SOP记录表.html">
+          <span class="tag green">术后随访</span>
+          <h3>AIOLIS / PCIOL / RLE 术后护理随访 SOP 记录表</h3>
+          <p>用于术后护理、随访节点、异常反馈和团队协同记录。</p>
+          <span class="open">打开工具</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="operation">
+      <div class="section-head">
+        <h2>运营共识</h2>
+        <p>用于项目研讨会、院内共识会和行动计划推进。</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="./民营眼科_PLS项目运营辅导研讨会_通用议程模板.html">
+          <span class="tag gold">会议模板</span>
+          <h3>民营眼科 PLS 项目运营辅导研讨会通用议程模板</h3>
+          <p>帮助医院组织项目研讨会，明确会议对象、议程和预期产出物。</p>
+          <span class="open">打开模板</span>
+        </a>
+        <a class="card" href="./PLS项目初步共识议题与90天建议行动表-通用版.html">
+          <span class="tag gold">行动计划</span>
+          <h3>PLS 项目初步共识议题与 90 天建议行动表</h3>
+          <p>把会议讨论落到责任人、时间表、跟踪指标和下一步协作方式。</p>
+          <span class="open">打开表单</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="system">
+      <div class="section-head">
+        <h2>体系建设</h2>
+        <p>用于院长、项目负责人和核心团队理解 PLS 运营框架。</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="./六大支柱核心内容.html">
+          <span class="tag green">运营体系</span>
+          <h3>民营医院全自费 PLS 项目成功运营的六大支柱</h3>
+          <p>从临床卓越、MDT、SOP、患者教育、定价成交到获客体系，逐层展开项目框架。</p>
+          <span class="open">打开内容</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="product">
+      <div class="section-head">
+        <h2>产品资料</h2>
+        <p>用于内部培训和医院项目沟通中的产品能力总览。</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="./JJSV IOL flcac和LipiFlow概览.html">
+          <span class="tag">产品矩阵</span>
+          <h3>JJSV IOL、Phaco、FLACS 和 LipiFlow 概览</h3>
+          <p>把 IOL、超乳、飞秒和眼表管理放到屈光性白内障中心能力中整体呈现。</p>
+          <span class="open">打开资料</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">© 民营眼科 PLS 项目运营工具箱 · 本页仅作为现有网页工具的统一入口。</div>
+  </footer>
+</body>
+</html>
